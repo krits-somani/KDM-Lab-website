@@ -1,0 +1,21 @@
+hr{
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top-color: rgb(238, 238, 238);
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-right-color: initial;
+    border-right-style: initial;
+    border-right-width: 0px;
+    border-bottom-color: initial;
+    border-bottom-style: initial;
+    border-bottom-width: 0px;
+    border-left-color: initial;
+    border-left-style: initial;
+    border-left-width: 0px;
+    border-top: 1px solid #eee;
+
+}
