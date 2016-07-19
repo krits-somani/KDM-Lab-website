@@ -1,0 +1,77 @@
+{% extends 'base.html' %} 
+{% load staticfiles %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block head %}<link rel="stylesheet" href="https://oss.maxcdn.com/semantic-ui/2.1.8/semantic.min.css"/> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://oss.maxcdn.com/semantic-ui/2.1.8/semantic.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="ui top fixed inverted menu" style="margin-top:0px;">
+        {% if user.is_authenticated %}
+            <a class = "header item" href="/">Back To Home</a>
+                <div class="right menu">
+                    <a href="/blogs" class = "item">View Posts</a>
+                    <a href="/blogs/create" class = "item">Create Post</a>
+                    <a href="{% url 'auth_logout' %}" class = "item">Logout {{ user }}</a>
+                </div>
+        {% else %}
+            <a class="header item">KDM </a>
+            <a class="item" href="/">Home</a>
+            <a class="item" href="/work">About</a>
+            <a class="item" href="/blogs">Blogs</a>
+            <a class="item" href="/contact">Contact</a>
+            <div class="right menu">
+                    <a class = "item" href="{% url 'auth_login' %}">Login</a>
+                    <a class = "item" href="{% url 'registration_register' %}">Register</a>
+            </div>
+        {% endif %}
+    </div>
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3" style="margin-top:30px;">
+
+				{% if post.image %}
+				<p><img src = "{{ post.image.url }}" class="img-responsive" /></p>
+				{% endif %}
+				<h4 style="margin-top:30px;">{{post.title}}  <small><!-- {% if post.draft %}<span style="color:red;">Draft</span> {% endif %}  -->{{ post.posted }}</small></h4>
+
+				<p>Author: {{ post.user }}</p>
+                {% if user.is_authenticated %}
+                     {% if request.user == post.user %} 
+                
+                <div><a href="{% url 'posts:update' id=post.id %}"> <i class="edit icon"></i>Edit </a></div>
+                <div><a href="{% url 'posts:delete' id=post.id %}"> <i class="erase icon"></i>Delete </a></div>
+                     {% endif %}
+                {% endif %}
+
+				
+				
+                  
+                   <!--   -->
+                <hr/>
+    			<p>{{ post.body|linebreaks }}</p>
+    			<hr />
+    			<p><div class="fb-like" data-href="{{ request.build_absolute_uri }}" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+<hr/>
+</p>
+
+				<p><div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5"></div></p>
+
+ 				<a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}/">
+				Facebook</a>
+
+				<a href="https://twitter.com/home?status={{ share_string }}%20{{ request.build_absolute_uri }}/">
+				Twitter
+				</a>
+
+				<a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}/&title={{ share_string }}&summary=Swift%20for%20Entrepreneurs%20is%20a%20project-based%20programming%20course%20for%20non-technical%20founders.%20We'll%20learn%20how%20to%20build%20iOS%20apps%20from%20scratch%20using%20Apple's%20new%20programming%20language:%20Swift.%20Be%20first%20and%20learn%20with%20me!&source={{ request.build_absolute_uri }}/">
+				Linkedin
+				</a>
+
+    	</div>
+    </div>
+</div>
+{% endblock %}

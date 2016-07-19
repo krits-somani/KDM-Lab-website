@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+{% block title %} 
+
+Welcome to KDM website{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="https://oss.maxcdn.com/semantic-ui/2.1.8/semantic.min.css"/> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://oss.maxcdn.com/semantic-ui/2.1.8/semantic.min.js"></script>
+{% endblock %}
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="well" > 
+				<h4 style="font-size:20px; text-align:center;" class="center-align">Write about your Project</h4>
+				</div>
+			<div class="ui teal segment" >
+				
+				<form method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+					{{form|crispy}}
+					<input type="submit" class="btn btn-primary" style="margin-left:500px;" value="Post"/>
+				</form>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

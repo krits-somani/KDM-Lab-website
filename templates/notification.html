@@ -1,0 +1,81 @@
+
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}
+Welcome to KDM website{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="https://oss.maxcdn.com/semantic-ui/2.1.8/semantic.min.css"/> 
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://oss.maxcdn.com/semantic-ui/2.1.8/semantic.min.js"></script>
+	
+{% endblock %}
+{% block content %}
+	<div class="ui top fixed inverted menu" style="margin-top:0px;">
+            {% if user.is_authenticated %}
+            <a class=" header item" href="/">
+
+            Back to Home
+             </a>
+             <div class="right menu">
+            <a class = " item" href="/blogs/create">Create Blog Post</a>
+            
+            <a class = " item" href="/work/post">Write about project</a>
+            <a class = "item" href="{% url 'auth_logout' %}">Logout {{ user }}</a>
+        </div>
+
+			{% endif %}            
+            
+    </div> 
+
+    <!-- <div class="alert alert-warning alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>Warning!</strong> Better check yourself, you're not looking too good.
+</div> -->
+
+    {% if instance %}
+    <div class="container">
+        <div class="ui segment">
+            <p style="text-align:center;">You have {{ instance.count }} new notifications!</p>
+        </div>
+    </div>
+    {% for ins in instance %} 
+        <div class="container" style="margin-top:10px;">
+    	<div class="alert alert-info" role="alert">
+            <div>
+  <p><strong>{{ ins.name }}</strong></p><p>{{ ins.title }}</p><p>{{ins.message}}</p>
+            </div>
+        <p><a href="/notification/delete/{{ ins.id }}" style="float:right; "><i class="close icon" ></i></a>
+        <a href="/notification/bookmark/{{ins.id}}" onclick="myfunc()" id="para" style="float:right;"><i class="bookmark icon"></i></a></p>
+        </div>
+
+
+    	<!-- <div class="ui teal segment">
+    		<ul>
+    			<li> {{ ins.name }} </li>
+    			<li> {{ ins.email }} </li>
+    			<li> {{ ins.title }} </li>
+    			<li> {{ ins.message }} </li>
+    		</ul>
+            <a href="/notification/delete/{{ ins.id }}">Mark as read</a>
+            <a href="/notification/bookmark/{{ ins.id }}" onclick="myfunc()" id="para"><i class="bookmark icon"></i></a>
+    	</div> -->
+        </div>
+
+
+    {% endfor %}
+    {% else %}
+    
+    <div class="container">
+        <div class="ui segment">
+            <p style="text-align:center;">No new notifications </p>
+        </div>
+    </div>
+    
+    {% endif %}
+    <script type="text/javascript">
+    function myfunc(){
+        document.getElementById("para").style.color="yellow";
+    }
+    </script>
+{% endblock %}
